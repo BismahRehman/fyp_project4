@@ -169,10 +169,10 @@ if st.button("Predict Fraud"):
         probability = model.predict_proba(final_input)[0][1]  # Probability of fraud
         # Display result
         if prediction[0] == 1:
-            st.error(f"⚠️ This transaction is predicted to be **Fraudulent** (Probability: {probability:.2%})")
+            st.error(f"⚠️ This transaction is predicted to be **Fraudulent** ")
         else:
             st.success(
-                f"✅ This transaction is predicted to be **Non-Fraudulent** (Probability of Fraud: {probability:.2%})")
+                f"✅ This transaction is predicted to be **Non-Fraudulent** ")
 
 # Add instructions
 st.markdown("""

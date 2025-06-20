@@ -160,7 +160,7 @@ if submitted:
                 prediction = model.predict(final_input)
                 probability = model.predict_proba(final_input)[0][1] * 100
                 result_class = "fraud" if prediction[0] == 1 else "non-fraud"
-                result_text = f"⚠️ Fraudulent Transaction with {probability:.2f}% probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction with {100 - probability:.2f}% probability."
+                result_text = f"⚠️ Fraudulent Transaction probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction probability."
                 st.markdown(f'<div class="prediction-box {result_class}">{result_text}</div>', unsafe_allow_html=True)
                 st.progress(probability / 100)
                 st.markdown(f"<p style='text-align: center; color: #4a4a4a;'>Fraud Probability: {probability:.2f}%</p>", unsafe_allow_html=True)

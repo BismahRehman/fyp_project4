@@ -117,13 +117,13 @@ if submitted:
         if final_input is not None:
             try:
                 prediction = model.predict(final_input)
-                probability = model.predict_proba(final_input)[0][1] * 100
+
 
                 st.subheader("🔍 Prediction Result")
                 if prediction[0] == 1:
-                    st.error(f"⚠️ Fraudulent Transaction with {probability:.2f}% probability.")
+                    st.error(f"⚠️ Fraudulent Transaction risked. be carefull.")
                 else:
-                    st.success(f"✅ Non-Fraudulent Transaction with {100 - probability:.2f}% probability.")
+                    st.success(f"✅ Non-Fraudulent Transaction ")
 
                 st.progress(probability / 100)
                 st.markdown(f"`Fraud Probability: {probability:.2f}%`")

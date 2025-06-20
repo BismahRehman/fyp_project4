@@ -225,14 +225,11 @@ if submitted:
             if final_input is not None:
                 try:
                     prediction = model.predict(final_input)
-                    probability = model.predict_proba(final_input)[0][1] * 100
 
                     st.subheader("🔍 Prediction Result")
-                    result_class = "fraud" if prediction[0] == 1 else "non-fraud"
-                    result_text = f"⚠️ Fraudulent Transaction with {probability:.2f}% probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction with {100 - probability:.2f}% probability."
-                    st.markdown(f'<div class="prediction-box {result_class}">{result_text}</div>', unsafe_allow_html=True)
-                    st.progress(probability / 100)
-                    st.markdown(f"<p style='text-align: center; color: #4a4a4a;'>Fraud Probability: {probability:.2f}%</p>", unsafe_allow_html=True)
+
+                    result_text = f"⚠️ Fraudulent Transaction with  probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction with probability."
+                    st.markdown(f"<p style='text-align: center; color: #4a4a4a;'>Fraud Probability", unsafe_allow_html=True)
                 except Exception as e:
                     st.error(f"Prediction Error: {str(e)}")
                     st.info("Please check inputs and try again.")

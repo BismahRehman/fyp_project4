@@ -123,12 +123,10 @@ if submitted:
     # Display results
     st.subheader("Prediction Result")
     if prediction[0] == 1:
-        st.error("**Fraudulent Transaction Detected!**")
+        st.error("**Fraudulent Transaction risked! be carefull**")
     else:
-        st.success("**Non-Fraudulent Transaction**")
+        st.success("** Transaction  is safe **")
 
-    st.write(f"Probability of Fraud: {prediction_prob[1]:.2%}")
-    st.write(f"Probability of Non-Fraud: {prediction_prob[0]:.2%}")
 
 # Footer
 st.markdown("---")

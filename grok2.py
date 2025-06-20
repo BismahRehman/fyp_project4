@@ -82,10 +82,10 @@ if submitted:
 
         st.subheader("Prediction Result")
         if prediction[0] == 1:
-            st.error(f"⚠️ This transaction is likely **Fraudulent** (Probability: {probability * 100:.2f}%)")
+            st.error(f"⚠️ This transaction is maybe **Fraudulent**  be carefull")
         else:
             st.success(
-                f"✅ This transaction is likely **Non-Fraudulent** (Probability of Fraud: {probability * 100:.2f}%)")
+                f"✅ This transaction is  **safe** ")
     except ValueError as e:
         st.error(f"Error: {e}. Please ensure all inputs match training data categories.")
 
