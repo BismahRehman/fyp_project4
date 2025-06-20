@@ -194,7 +194,7 @@ with st.container():
 
         submitted = st.form_submit_button("🎯 Predict Fraud", type="primary")
 
-# -------------------- Prediction --------------------
+# -------------------- Prediction with Additional Rules --------------------
 if submitted:
     trans_date_time = pd.to_datetime(f"{trans_date} {trans_time}")
     input_data = {
@@ -219,21 +219,23 @@ if submitted:
     }
 
     with st.spinner("Predicting..."):
-        final_input = preprocess_input(input_data, ohe, scaler, feature_names)
-        if final_input is not None:
-            try:
-                prediction = model.predict(final_input)
-                probability = model.predict_proba(final_input)[0][1] * 100
 
-                st.subheader("🔍 Prediction Result")
-                result_class = "fraud" if prediction[0] == 1 else "non-fraud"
-                result_text = f"⚠️ Fraudulent Transaction with {probability:.2f}% probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction with {100 - probability:.2f}% probability."
-                st.markdown(f'<div class="prediction-box {result_class}">{result_text}</div>', unsafe_allow_html=True)
-                st.progress(probability / 100)
-                st.markdown(f"<p style='text-align: center; color: #4a4a4a;'>Fraud Probability: {probability:.2f}%</p>", unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"Prediction Error: {str(e)}")
-                st.info("Please check inputs and try again.")
+
+            final_input = preprocess_input(input_data, ohe, scaler, feature_names)
+            if final_input is not None:
+                try:
+                    prediction = model.predict(final_input)
+                    probability = model.predict_proba(final_input)[0][1] * 100
+
+                    st.subheader("🔍 Prediction Result")
+                    result_class = "fraud" if prediction[0] == 1 else "non-fraud"
+                    result_text = f"⚠️ Fraudulent Transaction with {probability:.2f}% probability." if prediction[0] == 1 else f"✅ Non-Fraudulent Transaction with {100 - probability:.2f}% probability."
+                    st.markdown(f'<div class="prediction-box {result_class}">{result_text}</div>', unsafe_allow_html=True)
+                    st.progress(probability / 100)
+                    st.markdown(f"<p style='text-align: center; color: #4a4a4a;'>Fraud Probability: {probability:.2f}%</p>", unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Prediction Error: {str(e)}")
+                    st.info("Please check inputs and try again.")
 
 # -------------------- Charts --------------------
 st.header("📊 Data Insights")
@@ -247,10 +249,8 @@ else:
     fraud_counts = [95, 5]  # Fallback
 
 st.subheader("Fraud vs. Non-Fraud Transactions")
-
-# Replace __FRAUD_COUNTS__ in the chart
 fraud_counts_str = f"[{fraud_counts[0]}, {fraud_counts[1]}]"
-st.markdown(f"<script>window.chartData = {{...window.chartData, 'fraud_pie': {{...window.chartData['fraud_pie'], data: {{...window.chartData['fraud_pie'].data, datasets: [{{...window.chartData['fraud_pie'].data.datasets[0], data: {fraud_counts_str}}}]}}}}</script>", unsafe_allow_html=True)
+st.markdown(f"<script>window.chartData = {{...window.chartData, 'fraud_pie': {{...window.chartData['fraud_pie'], data: {{...window.chartData['fraud_pie'].data, datasets: [{{...window.chartData['fraud_pie'].data.datasets[0], data: {fraud_counts_str}]}}}}</script>", unsafe_allow_html=True)
 
 # -------------------- Footer --------------------
 st.markdown(f'<div class="footer">Built with ❤️ using Streamlit | Model: Random Forest | © {datetime.datetime.now().year} Bismah</div>', unsafe_allow_html=True)
